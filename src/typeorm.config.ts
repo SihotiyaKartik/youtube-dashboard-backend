@@ -11,7 +11,7 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   entities: [__dirname + '/../entity/**/*.entity.{js,ts}'],
-  synchronize: true, // Automatically creates database schema. Use with caution in production.
+  synchronize: true,
 };
 
 export default typeOrmConfig;
