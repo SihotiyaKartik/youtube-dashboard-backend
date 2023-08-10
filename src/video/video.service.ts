@@ -10,7 +10,14 @@ export class VideoService {
     private readonly videoRepository: Repository<Video>,
   ) {}
 
-  async storeVideo(videos: Video[]) {
-    return this.videoRepository.save(videos);
+  async getVideoWithPagination(page: number, limit: number): Promise<Video[]> {
+    const skip = (page - 1) * limit;
+
+    const videos = await this.videoRepository.find({
+      skip: skip,
+      take: limit,
+    });
+
+    return videos;
   }
 }
