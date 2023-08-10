@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Video } from 'src/entity/video.entity';
 import { Repository } from 'typeorm';
@@ -19,5 +19,13 @@ export class VideoService {
     });
 
     return videos;
+  }
+
+  async findVideoById(id: number): Promise<Video | undefined> {
+    const video = await this.videoRepository.findOne({ where: { id: id } });
+    if (!video) {
+      throw new NotFoundException('Video not found');
+    }
+    return video;
   }
 }
