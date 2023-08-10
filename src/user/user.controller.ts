@@ -1,4 +1,11 @@
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  BadRequestException,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from './user.dto';
 
@@ -7,6 +14,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('register')
+  @UsePipes(new ValidationPipe())
   async register(@Body() createUserDto: UserDto): Promise<{ message: string }> {
     const { email, password } = createUserDto;
     const isOldUser = await this.userService.findUserByEmail(email);

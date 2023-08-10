@@ -8,9 +8,8 @@ function extractUsernameFromEmail(email: string): string {
   const splitIndex = email.indexOf('@');
   if (splitIndex !== -1) {
     return email.substring(0, splitIndex);
-  } else {
-    throw new Error('Invalid email while extracting username from it');
   }
+  return email;
 }
 
 @Injectable()
