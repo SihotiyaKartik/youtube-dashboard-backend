@@ -3,10 +3,14 @@ import {
   Get,
   Query,
   Param,
-  NotFoundException,
+  Post,
+  Body,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { VideoService } from './video.service';
 import { Video } from 'src/entity/video.entity';
+import { SearchVideoDto } from './search.video.dto';
 
 @Controller('videos')
 export class VideoController {
@@ -22,7 +26,13 @@ export class VideoController {
 
   @Get(':id')
   async getVideoById(@Param('id') id: number): Promise<Video> {
-    const video = await this.videoService.findVideoById(id);
-    return video;
+    return await this.videoService.findVideoById(id);
+  }
+
+  @Post('title')
+  @UsePipes(new ValidationPipe())
+  async getVideoByTitle(@Body() videoDto: SearchVideoDto): Promise<Video[]> {
+    const { title } = videoDto;
+    return await this.videoService.findVideoByTitle(title);
   }
 }
