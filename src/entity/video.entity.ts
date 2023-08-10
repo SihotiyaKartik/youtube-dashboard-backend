@@ -6,6 +6,9 @@ export class Video {
   id: number;
 
   @Column()
+  videoId: string;
+
+  @Column()
   title: string;
 
   @Column()

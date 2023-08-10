@@ -1,7 +1,8 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { VideoService } from './video.service';
+import { VideoCronService } from './video.cron.service';
 
 @Controller('videos')
 export class VideoController {
-  constructor(private readonly videoService: VideoService) {}
+  constructor(private readonly videoCronService: VideoCronService) {}
 }

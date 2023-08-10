@@ -9,7 +9,8 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [__dirname + '/entity/**/*.entity.{js,ts}'],
   synchronize: true,
   ssl: true,
-  migrations: [__dirname + '/migrations/'],
+  migrations: ['migrations/*{.js, .ts}'],
+  migrationsTableName: 'migrations_TypeORM',
 };
 
 export default typeOrmConfig;

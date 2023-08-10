@@ -3,10 +3,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VideoController } from './video.controller';
 import { VideoService } from './video.service';
+import { VideoCronService } from './video.cron.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Video])],
   controllers: [VideoController],
-  providers: [VideoService],
+  providers: [VideoService, VideoCronService],
 })
 export class VideoModule {}

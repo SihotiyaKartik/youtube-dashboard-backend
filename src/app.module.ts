@@ -6,10 +6,12 @@ import { VideoModule } from './video/video.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import typeOrmConfig from './typeorm.config';
+import { ScheduleModule } from 'nestjs-schedule';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
+    ScheduleModule.forRoot(),
     AuthModule,
     VideoModule,
     UserModule,

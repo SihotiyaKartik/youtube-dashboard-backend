@@ -9,4 +9,8 @@ export class VideoService {
     @InjectRepository(Video)
     private readonly videoRepository: Repository<Video>,
   ) {}
+
+  async storeVideo(videos: Video[]) {
+    return this.videoRepository.save(videos);
+  }
 }
