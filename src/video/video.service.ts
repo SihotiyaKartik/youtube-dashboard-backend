@@ -2,12 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Video } from 'src/entity/video.entity';
 import { Repository } from 'typeorm';
+import { User } from 'src/entity/user.entity';
 
 @Injectable()
 export class VideoService {
   constructor(
     @InjectRepository(Video)
     private readonly videoRepository: Repository<Video>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async getVideoWithPagination(page: number, limit: number): Promise<Video[]> {
@@ -40,4 +43,15 @@ export class VideoService {
 
     return videos;
   }
+
+  // async addToWatchLater(user: User, videoId: number): Promise<void> {
+  //   const video = await this.videoRepository.findOne({
+  //     where: { id: videoId },
+  //   });
+  //   if (!video) throw new NotFoundException('No video found for following id');
+  //   if (!user?.watchLater.includes(video)) {
+  //     user.watchLater.push(video);
+  //     await this.userRepository.save(user);
+  //   }
+  // }
 }

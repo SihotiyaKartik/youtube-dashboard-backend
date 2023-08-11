@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { UserWatchLaterVideo } from './user.watch.later.entity';
 
 @Entity()
 export class Video {
@@ -22,4 +23,7 @@ export class Video {
 
   @Column()
   videoUrl: string;
+
+  @OneToMany(() => UserWatchLaterVideo, (watchLater) => watchLater.video)
+  usersWatchLater: UserWatchLaterVideo[];
 }

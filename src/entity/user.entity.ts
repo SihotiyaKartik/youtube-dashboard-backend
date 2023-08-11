@@ -1,11 +1,6 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
-import { Video } from './video.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { UserWatchLaterVideo } from './user.watch.later.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -19,9 +14,9 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
-  @ManyToMany(() => Video)
-  @JoinTable()
-  watchLater: Video[];
+  @OneToMany(() => UserWatchLaterVideo, (watchLater) => watchLater.user)
+  watchLater: UserWatchLaterVideo[];
 }
