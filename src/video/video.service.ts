@@ -13,15 +13,20 @@ export class VideoService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async getVideoWithPagination(page: number, limit: number): Promise<Video[]> {
+  async getVideoWithPagination(page: number): Promise<any> {
+    const limit = 10;
     const skip = (page - 1) * limit;
 
-    const videos = await this.videoRepository.find({
-      skip: skip,
-      take: limit,
-    });
+    const [videos, totalVideo] = await this.videoRepository
+      .createQueryBuilder('video')
+      .orderBy('video.id', 'DESC')
+      .skip(skip)
+      .take(limit)
+      .getManyAndCount();
 
-    return videos;
+    return {
+      data: { videos: videos, totalPages: Math.ceil(totalVideo / limit) },
+    };
   }
 
   async findVideoById(id: number): Promise<Video | undefined> {

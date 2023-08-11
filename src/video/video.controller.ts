@@ -17,11 +17,8 @@ export class VideoController {
   constructor(private readonly videoService: VideoService) {}
 
   @Get()
-  async getAllVideos(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 15,
-  ): Promise<Video[]> {
-    return this.videoService.getVideoWithPagination(page, limit);
+  async getAllVideos(@Query('page') page: number = 1): Promise<any> {
+    return this.videoService.getVideoWithPagination(page);
   }
 
   @Get(':id')
