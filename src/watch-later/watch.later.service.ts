@@ -45,4 +45,18 @@ export class WatchLaterService {
       relations: ['video'],
     });
   }
+
+  async removeWatchLaterVideById(user: User, videoId: number): Promise<void> {
+    const watchLaterVideo = await this.watchLaterRepository.findOne({
+      where: { user, video: { id: videoId } },
+    });
+
+    if (!watchLaterVideo) {
+      throw new NotFoundException(
+        'Video not found in watch later list database.',
+      );
+    }
+
+    await this.watchLaterRepository.remove(watchLaterVideo);
+  }
 }

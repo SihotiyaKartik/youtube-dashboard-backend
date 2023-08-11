@@ -7,6 +7,7 @@ import {
   Post,
   Get,
   NotFoundException,
+  Delete,
 } from '@nestjs/common';
 import { VideoService } from 'src/video/video.service';
 import { JwtAuthGuard } from 'src/auth/auth.guard';
@@ -52,6 +53,19 @@ export class WatchLaterController {
     return {
       message: 'Video added to Watch Later list.',
       watchLaterData,
+    };
+  }
+
+  @Delete(':videoId')
+  async deleteWatchLaterVideo(
+    @Param('videoId', ParseIntPipe) videoId: number,
+    @Request() req,
+  ) {
+    const user = req.user;
+    await this.watchLaterService.removeWatchLaterVideById(user, videoId);
+
+    return {
+      data: { message: 'Video successfully removed from watch later list' },
     };
   }
 }
