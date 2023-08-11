@@ -51,8 +51,7 @@ export class WatchLaterController {
     );
 
     return {
-      message: 'Video added to Watch Later list.',
-      watchLaterData,
+      data: { message: 'Video added to Watch Later list.', watchLaterData },
     };
   }
 

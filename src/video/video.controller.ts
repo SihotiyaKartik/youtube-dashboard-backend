@@ -31,8 +31,9 @@ export class VideoController {
 
   @Post('title')
   @UsePipes(new ValidationPipe())
-  async getVideoByTitle(@Body() videoDto: SearchVideoDto): Promise<Video[]> {
+  async getVideoByTitle(@Body() videoDto: SearchVideoDto): Promise<any> {
     const { title } = videoDto;
-    return await this.videoService.findVideoByTitle(title);
+    const videoData = await this.videoService.findVideoByTitle(title);
+    return { data: videoData };
   }
 }

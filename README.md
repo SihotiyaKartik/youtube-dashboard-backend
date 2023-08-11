@@ -24,11 +24,15 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A backend API using NestJS, TypeORM, and PostgreSQL that fetches the latest and most popular videos from YouTube in 'INDIA' region every 2 hours using CronJob via its API, stores them in a PostgreSQL database, and allows user authentication. User can create account and check videos present in database and able to add videos to their "Watch Later" list with proper authentication.
 
 ## Installation
 
 ```bash
+$ git clone https://github.com/SihotiyaKartik/youtube-dashboard-backend.git
+
+$ cd <application_directory>
+
 $ npm install
 ```
 
@@ -58,15 +62,103 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## API Documentation
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+base url: https://youtube-dashboard-api-v1.onrender.com
+```
+
+- Registering user
+
+  ```
+  API: {{base_url}}/users/register
+
+  Body: {
+    email,
+    password
+  }
+
+  Method: POST
+  ```
+
+- Login User
+
+  ```
+  API: {{base_url}}/users/register
+
+  Body: {
+    email: string,
+    password: string
+  }
+
+  Method: POST
+
+  Return: {jwt_access_token} for authentication purpose
+  ```
+
+- Get all videos in Database
+
+  ```
+  API: {{base_url}}/videos?page=1&limit=10
+
+  Method: GET
+  ```
+
+- Get videos by Id
+
+  ```
+  API: {{base_url}}/videos/:videoId
+
+  Method: GET
+  ```
+
+- Get video by title
+
+  ```
+  API: {{base_url}}/videos/title
+
+  Body: {
+    title: string
+  }
+
+  Method: POST
+  ```
+
+- Add videos to watch later
+
+  ```
+  API: {{SITE_URL}}/watch_later/:videoId
+
+  Method: POST
+
+  Authorization: Include Jwt token as a bearer token
+  ```
+
+- Get all watchLater video for a user
+
+  ```
+  API: {{SITE_URL}}/watch_later/list
+
+  Method: GET
+
+  Authorization: Include Jwt token as a bearer token
+  ```
+
+- Remove a particular video from watch later
+
+  ```
+  API: {{SITE_URL}}/watch_later/:videoId
+
+  Method: DELETE
+
+  Authorization: Include Jwt token as a bearer token
+  ```
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Kartik Sihotiya](www.linkedin.com/in/kartik-sihotiya-2002)
+- Website - https://kartiksihotiya.netlify.app/
+- Twitter - https://twitter.com/KartikSihotiya
 
 ## License
 

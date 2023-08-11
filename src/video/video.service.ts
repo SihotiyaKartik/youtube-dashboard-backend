@@ -38,20 +38,12 @@ export class VideoService {
       .where('LOWER(video.title) LIKE LOWER(:title)', { title: `%${title}%` })
       .getMany();
 
-    if (!videos)
-      throw new NotFoundException('No videos found having this title');
+    if (!videos && videos.length === 0)
+      throw new NotFoundException({
+        message: 'No videos found having this title',
+        data: [],
+      });
 
     return videos;
   }
-
-  // async addToWatchLater(user: User, videoId: number): Promise<void> {
-  //   const video = await this.videoRepository.findOne({
-  //     where: { id: videoId },
-  //   });
-  //   if (!video) throw new NotFoundException('No video found for following id');
-  //   if (!user?.watchLater.includes(video)) {
-  //     user.watchLater.push(video);
-  //     await this.userRepository.save(user);
-  //   }
-  // }
 }
