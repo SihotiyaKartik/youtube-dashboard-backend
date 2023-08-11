@@ -38,4 +38,11 @@ export class WatchLaterService {
       video: { id: video.id },
     };
   }
+
+  async getWatchLaterVideoList(user: User): Promise<UserWatchLaterVideo[]> {
+    return await this.watchLaterRepository.find({
+      where: { user },
+      relations: ['video'],
+    });
+  }
 }
